@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Mover : MonoBehaviour
@@ -13,6 +11,6 @@ public class Mover : MonoBehaviour
 
     private void Move()
     {
-        transform.Translate(transform.forward * _speed * Time.deltaTime);
+        transform.Translate(transform.forward * _speed * Time.deltaTime, Space.World);
     }
 }
