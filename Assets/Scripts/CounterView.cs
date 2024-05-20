@@ -16,8 +16,8 @@ public class CounterView : MonoBehaviour
         _counter.Changed -= ChangeValue;
     }
 
-    private void ChangeValue()
+    private void ChangeValue(int newValue)
     {
-        _counterText.text = _counter.Value.ToString("");
+        _counterText.text = newValue.ToString();
     }
 }

@@ -9,11 +9,9 @@ public class Counter : MonoBehaviour
     [SerializeField] private float _additionalDelay = 0.5f;
 
     private int _value;
-    private bool _isRunning = false;
+    private Coroutine _currentCoroutine;
 
-    public int Value => _value;
-
-    public event Action Changed;
+    public event Action<int> Changed;
 
     private void Start()
     {
@@ -22,25 +20,26 @@ public class Counter : MonoBehaviour
 
     public void StartCointing()
     {
-        StartCoroutine(StartCounting());
+        _currentCoroutine = StartCoroutine(StartCounting());
     }
 
     public void StopCounting()
     {
-        _isRunning = false;
+        if (_currentCoroutine == null)
+            return;
+
+        StopCoroutine(_currentCoroutine);
     }
 
     private void Add(int value)
     {
         _value += value;
-        Changed?.Invoke();
+        Changed?.Invoke(_value);
     }
 
     private IEnumerator StartCounting()
     {
-        _isRunning = true;
-
-        while (_isRunning)
+        while (true)
         {
             Add(_additionalValue);
             yield return new WaitForSeconds(_additionalDelay);
