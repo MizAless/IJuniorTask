@@ -30,7 +30,7 @@ public class Counter : MonoBehaviour
         _isRunning = false;
     }
 
-    public void Add(int value)
+    private void Add(int value)
     {
         _value += value;
         Changed?.Invoke();
